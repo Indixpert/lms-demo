@@ -1,16 +1,23 @@
 import React from 'react';
-import Header from './components/Header';
+import { Routes, Route } from 'react-router-dom';
+import Sidebar from './components/layout/Sidebar';
+import Header from './components/layout/Header';
 import Dashboard from './pages/Dashboard';
+import CourseDetails from './pages/CourseDetails';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <Dashboard />
-        </div>
-      </main>
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/courses/:courseId" element={<CourseDetails />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }

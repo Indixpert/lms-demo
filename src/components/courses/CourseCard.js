@@ -1,31 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../common/Card';
-
-const ProgressBar = ({ progress }) => (
-  <div>
-    <div className="flex justify-between mb-1">
-      <span className="text-base font-medium text-indigo-700">Progress</span>
-      <span className="text-sm font-medium text-indigo-700">{progress}%</span>
-    </div>
-    <div className="w-full bg-gray-200 rounded-full h-2.5">
-      <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
-    </div>
-  </div>
-);
 
 const CourseCard = ({ course }) => {
   return (
-    <Card className="hover:shadow-xl transition-shadow duration-300">
-      <img src={course.thumbnail} alt={course.title} className="h-48 w-full object-cover" />
-      <div className="p-6">
-        <h4 className="text-lg font-semibold text-gray-900 mb-1 truncate">{course.title}</h4>
-        <p className="text-sm text-gray-600 mb-4">By {course.instructor}</p>
-        <ProgressBar progress={course.progress} />
-        <button className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
-          Continue
-        </button>
-      </div>
-    </Card>
+    <Link to={`/courses/${course.id}`}>
+      <Card className="hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+        <img className="h-40 w-full object-cover" src={course.thumbnail} alt={course.title} />
+        <div className="p-6 flex flex-col flex-grow">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">{course.title}</h3>
+          <p className="text-gray-600 text-sm mb-4">By {course.instructor}</p>
+          <div className="mt-auto">
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div 
+                className="bg-indigo-600 h-2.5 rounded-full" 
+                style={{ width: `${course.progress}%` }}
+              ></div>
+            </div>
+            <p className="text-right text-sm text-gray-500 mt-2">{course.progress}% Complete</p>
+          </div>
+        </div>
+      </Card>
+    </Link>
   );
 };
 
